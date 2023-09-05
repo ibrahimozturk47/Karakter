@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class charController : MonoBehaviour
 {
+    AudioSource audioSource;
+    [SerializeField] public AudioClip walkClip;
     public GameObject cek;
     Animator animator;
     public Transform Cam;
@@ -20,6 +22,7 @@ public class charController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,26 +52,33 @@ public class charController : MonoBehaviour
         {
             if (walk)
             {
+                
                 animator.SetInteger("anim", 5);
-                speed = 9;
+                speed = 12;
                 walk = false;
             }
             else
             {
-                speed = 4;
+                speed = 7;
                 animator.SetInteger("anim", 1);
+                
             }
+            audioSource.Play();
+           
+            
         }
+        
 
         else if (Input.GetKey(KeyCode.A))
         {
-            speed = 2;
+            speed = 5;
             animator.SetInteger("anim", 2);
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             animator.SetInteger("anim", 3);
+            speed = 5;
         }
 
         else if (Input.GetKey(KeyCode.S))
@@ -79,7 +89,8 @@ public class charController : MonoBehaviour
             }
             else
             {
-                speed = 4;
+                speed = 6;
+                
             }
             
             animator.SetInteger("anim", 4);
@@ -100,22 +111,26 @@ public class charController : MonoBehaviour
         }
         else
         {
+          
           animator.SetInteger("anim", 0);
           animator.SetBool("pull", false);
           animator.SetBool("push", false);
           cek.GetComponent<cube>().mass = 500;
         }
         
-
+        
     }
+    
 
     private void OnTriggerStay(Collider other)
     {
         if (Input.GetKey(KeyCode.Space))
         {
+            
             rb.velocity=Vector3.up*Time.deltaTime*jumpSpeed;
             animator.SetBool("jump", true);
             animator.SetBool("walkjump", true);
+         
         }
         else
         {
@@ -124,6 +139,8 @@ public class charController : MonoBehaviour
             
         }
     }
+
+    
 
     private void OnTriggerEnter(Collider other)
     {

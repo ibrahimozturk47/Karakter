@@ -5,9 +5,9 @@ using UnityEngine;
 public class cameraControl : MonoBehaviour
 {
     public Transform target; 
-    public float mouseSpeed;
+    public float mouseSpeed=300f;
     float xRot, yRot;
-    public float minX, maxX,camSpeed=0.3f;
+    public float minX=0, maxX=0,camSpeed=0.3f;
 
     // Start is called before the first frame update
     void Start()
